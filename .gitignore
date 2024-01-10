@@ -1,5 +1,5 @@
 # Ignore targets
-*/target/*
+*target/*
 
 # Ignore binaries
 *.exe
