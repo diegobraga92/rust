@@ -16,6 +16,18 @@ reqwest = "0.12.12"
 serde = { version = "1.0.217", features = ["derive"]}
 tokio = { version = "1.43.0", features = ["macros", "rt-multi-thread"]}
 
+[dependencies.sqlx]
+version = "0.8.3"
+default-features = false
+features = [
+    "runtime-actix-rustls",
+    "macros",
+    "postgres",
+    "uuid",
+    "chrono",
+    "migrate"
+]
+
 [target.x86_64-pc-windows-msvc]
 rustflags = ["-C", "link-arg=-fuse-ld=lld"]
 
