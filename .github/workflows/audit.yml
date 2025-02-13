@@ -4,6 +4,9 @@ on:
     paths:
       - '**/Cargo.toml'
       - '**/Cargo.lock'
+defaults:
+  run:
+    working-directory: ZeroToProd/zero2prod
 jobs:
   security_audit:
     runs-on: ubuntu-latest
