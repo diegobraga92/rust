@@ -5,10 +5,15 @@ use axum::{
 
 #[tokio::main]
 async fn main() {
-    // build our application with a single route
-    let app = Router::new().route("/", get(|| async { "Hello, World!" }));
+    let app = Router::new()
+        .route("/", get(|| async { "Hello, World!" }))
+        .route("/health", get(health_check));
 
-    // run our app with hyper, listening globally on port 3000
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    println!("listening on {}", listener.local_addr().unwrap());
     axum::serve(listener, app).await.unwrap();
+}
+
+async fn health_check() -> &'static str {
+    "OK"
 }
