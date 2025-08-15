@@ -2,6 +2,10 @@ use axum::{
     routing::{get},
     Router,
 };
+use diesel_migrations::{EmbeddedMigrations, embed_migrations};
+
+// Define migrations dir for diesel
+pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations/");
 
 #[tokio::main]
 async fn main() {
