@@ -34,4 +34,9 @@ done
 # Run Diesel migrations
 diesel migration run
 
+
 echo "Migrations applied!"
+
+# Start the Rust server
+echo "Starting Rust server..."
+cargo run

@@ -26,7 +26,7 @@
 
 ## Dev Environment:
 
-From Linux, run 'start_postgres.sh' to start Postgres in docker
+From Linux, run 'dev_start.sh' to start Postgres in docker and the server
 
 ## TO-DO
 
