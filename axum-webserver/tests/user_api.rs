@@ -15,6 +15,12 @@ async fn test_health_check() {
         resp.text().await.unwrap()
     );
     let body = resp.text().await.unwrap();
+    assert_eq!(
+        resp.status(),
+        StatusCode::OK,
+        "Health check failed: {}",
+        body
+    );
     assert_eq!(body, "OK");
 }
 
