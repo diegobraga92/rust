@@ -4,6 +4,7 @@ use axum::{
 };
 use diesel_migrations::{EmbeddedMigrations, embed_migrations};
 use std::net::SocketAddr;
+use tracing_subscriber;
 
 mod db;
 mod error;
@@ -19,6 +20,8 @@ pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations/");
 
 #[tokio::main]
 async fn main() {
+    // Initialize logging
+    tracing_subscriber::fmt::init();
     // Start DB connection pool
     let db_url = std::env::var("DATABASE_URL").unwrap();
     let manager = deadpool_diesel::postgres::Manager::new(db_url, deadpool_diesel::Runtime::Tokio1);
