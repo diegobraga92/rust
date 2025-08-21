@@ -5,8 +5,9 @@ edition = "2024"
 
 [dependencies]
 axum = "0.8.4"
+chrono = { version = "0.4.41", features = ["serde"] }
 deadpool-diesel = { version = "0.6.1", features = ["postgres"] }
-diesel = { version = "2.2.12", features = ["postgres"] }
+diesel = { version = "2.2.12", features = ["postgres", "chrono"] }
 diesel_migrations = "2.2.0"
 dotenvy = "0.15.7"
 hyper = "1.6.0"

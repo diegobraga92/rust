@@ -8,22 +8,9 @@ async fn test_health_check() {
     let resp = reqwest::get("http://localhost:3000/health")
         .await
         .expect("Failed to send request");
-    assert_eq!(
-        resp.status(),
-        StatusCode::OK,
-        "Health check failed: {}",
-        resp.text().await.unwrap()
-    );
-    let body = resp.text().await.unwrap();
-    assert_eq!(
     let status = resp.status();
     let body = resp.text().await.unwrap();
-    assert_eq!(
-        status,
-        StatusCode::OK,
-        "Health check failed: {}",
-        body
-    );
+    assert_eq!(status, StatusCode::OK, "Health check failed: {}", body);
     assert_eq!(body, "OK");
 }
 
