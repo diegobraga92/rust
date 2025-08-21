@@ -23,7 +23,7 @@ async fn main() {
     // Initialize logging
     tracing_subscriber::fmt::init();
     // Start DB connection pool
-    let db_url = std::env::var("DATABASE_URL").unwrap();
+    let db_url = std::env::var("DATABASE_URL").expect("DATABASE_URL environment variable must be set");
     let manager = deadpool_diesel::postgres::Manager::new(db_url, deadpool_diesel::Runtime::Tokio1);
     let pool = deadpool_diesel::postgres::Pool::builder(manager)
         .build()
