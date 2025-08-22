@@ -13,6 +13,7 @@ mod routes;
 mod schema;
 
 use routes::health::health_check;
+use routes::todo::{create_todo, list_todos, mark_todo_done, unmark_todo_done};
 use routes::user::{create_user, list_users};
 
 // Diesel embedded migrations
@@ -23,7 +24,8 @@ async fn main() {
     // Initialize logging
     tracing_subscriber::fmt::init();
     // Start DB connection pool
-    let db_url = std::env::var("DATABASE_URL").expect("DATABASE_URL environment variable must be set");
+    let db_url =
+        std::env::var("DATABASE_URL").expect("DATABASE_URL environment variable must be set");
     let manager = deadpool_diesel::postgres::Manager::new(db_url, deadpool_diesel::Runtime::Tokio1);
     let pool = deadpool_diesel::postgres::Pool::builder(manager)
         .build()
@@ -34,6 +36,11 @@ async fn main() {
         .route("/health", get(health_check))
         .route("/user/list", get(list_users))
         .route("/user/create", post(create_user))
+        // Todo endpoints
+        .route("/todo", post(create_todo))
+        .route("/todo", get(list_todos))
+        .route("/todo/:id/done", post(mark_todo_done))
+        .route("/todo/:id/undone", post(unmark_todo_done))
         .with_state(pool); // with_state allows the resource to be accessed as an State argument of type X
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
